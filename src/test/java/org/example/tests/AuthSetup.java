@@ -2,7 +2,6 @@ package org.example.tests;
 
 
 import com.microsoft.playwright.BrowserContext;
-import com.microsoft.playwright.Page;
 import org.example.base.BaseTest;
 import org.example.base.PlaywrightFactory;
 import org.example.pages.LoginPage;
@@ -13,7 +12,7 @@ import com.microsoft.playwright.options.LoadState;
 
 public class AuthSetup extends BaseTest {
 
-    @Test(groups = {"smoke","regression"},description = "Generate global authentication state JSON mapping file for active execution session context sharing")
+    @Test(groups = {"functional","smoke","regression"},description = "Generate global authentication state JSON mapping file for active execution session context sharing")
     public void generateGlobalAppStateJson() {
 
         LoginPage loginPage = new LoginPage(getPage());
