@@ -31,16 +31,19 @@ pipeline {
 
         stage('Run Playwright Tests') {
             steps {
-            // Pass all three tags separated by commas if 'all' is selected
-            def targetGroups = (params.GROUP == 'all') ? 'regression,smoke,functional' : params.GROUP
-                // For Windows Jenkins agents:
-                bat """
-                    mvn clean test ^
-                    -Dbrowser=${params.BROWSER} ^
-                    -Dheadless=true ^
-                    -Dgroups=${targetGroups} ^
-                    -DthreadCount=${params.THREADS}
-                """
+            // script {} block is mandatory in Declarative Pipelines when using Groovy variables (def)
+            script {
+                    // Pass all three tags separated by commas if 'all' is selected
+                    def targetGroups = (params.GROUP == 'all') ? 'regression,smoke,functional' : params.GROUP
+                        // For Windows Jenkins agents:
+                        bat """
+                            mvn clean test ^
+                            -Dbrowser=${params.BROWSER} ^
+                            -Dheadless=true ^
+                            -Dgroups=${targetGroups} ^
+                            -DthreadCount=${params.THREADS}
+                        """
+                    }
                 // Note: For Linux/Mac Jenkins agents, use 'sh' and '\' instead of 'bat' and '^'
             }
         }
