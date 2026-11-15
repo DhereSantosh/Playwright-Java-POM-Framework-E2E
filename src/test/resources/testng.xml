@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org">
+<suite name="OrangeHRM Automation Test Suite" parallel="none">
+
+    <!-- Global Suite Parameters (Fallback Defaults) -->
+    <parameter name="browser" value="chromium"/>
+    <parameter name="headless" value="false"/>
+    <!--<parameter name="storageState" value="src/test/resources/appLoginState.json"/>-->
+
+    <!-- 1. The Setup Phase: Runs UI interaction to cache session cookies to disk first -->
+    <test name="Authentication Security Setup Session">
+        <classes>
+            <class name="org.example.tests.AuthSetup"/>
+        </classes>
+    </test>
+
+    <!-- 2. The Execution Phase: Runs tests with authentication state fully injected -->
+    <test name="Authenticated Dashboard Functionality Validations" parallel="methods" thread-count="3">
+        <parameter name="storageState" value="src/test/resources/appLoginState.json"/>
+        <classes>
+            <class name="org.example.tests.DashboardTest"/>
+            <class name="org.example.tests.HelpTabTest"/>
+        </classes>
+    </test>
+
+    <!-- 2. Execution Phase: Runs ONLY tests tagged with 'regression' -->
+    <!--<test name="Regression Test Execution">
+        <parameter name="storageState" value="src/test/resources/appLoginState.json"/>
+
+        <groups>
+            <run>
+                <include name="regression"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="org.example.tests.DashboardTest"/>
+            <class name="org.example.tests.LoginTest"/>
+            <class name="org.example.tests.HelpTabTest"/>
+        </classes>
+    </test>-->
+
+</suite>
